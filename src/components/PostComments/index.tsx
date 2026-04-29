@@ -1,5 +1,12 @@
-import { FormEvent, useState } from 'react';
-import styles from './PostComments.module.css';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import {
+    CommentsList,
+    CommentItem,
+    CommentContent,
+    CommentsForm,
+    CommentsTextarea,
+    CommentsButton,
+} from './PostComments.styles';
 
 import Comment from '../../models/Comment';
 
@@ -16,21 +23,21 @@ const Post = () => {
 
     return (
         <div>
-            <ul data-testid="post-comments-list" className={styles['post-comments']}>
+            <CommentsList data-testid="post-comments-list">
                 {comments.map(({ comment, id }) => (
-                    <li data-testid="post-comment" className={styles['post-comment']} key={id}>
-                        <p className={styles['post-comment-content']}>
+                    <CommentItem data-testid="post-comment" key={id}>
+                        <CommentContent>
                             {comment}
-                        </p>
-                    </li>
+                        </CommentContent>
+                    </CommentItem>
                 ))}
-            </ul>
-            <form onSubmit={handleAddComment} className={styles['post-comments-form']}>
-                <textarea data-testid="post-comment-input" value={tempComment} onChange={e => setTempComment(e.target.value)} required className={styles['post-comments-form-textarea']} />
-                <button data-testid="post-comment-submit" type="submit" className={styles['post-comments-form-button']}>
+            </CommentsList>
+            <CommentsForm onSubmit={handleAddComment}>
+                <CommentsTextarea data-testid="post-comment-input" value={tempComment} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setTempComment(e.target.value)} required />
+                <CommentsButton data-testid="post-comment-submit" type="submit">
                     Comentar
-                </button>
-            </form>
+                </CommentsButton>
+            </CommentsForm>
         </div>
     );
 }
